@@ -172,7 +172,6 @@ class oberknechtSSHWSServer {
                     return sendWC({ error: Error("Login required") }, 401);
                 switch (type) {
                     case "test": {
-                        console.log("sendtest");
                         return sendWC({});
                     }
                     case "login": {

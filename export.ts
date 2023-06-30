@@ -1,1 +1,1 @@
-export * from "./lib-ts/client/oberknechtSSHWSClient";
+export * from "./lib-ts/server/oberknechtSSHWSServer";
