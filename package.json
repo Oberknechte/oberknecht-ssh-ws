@@ -1,0 +1,29 @@
+{
+  "name": "oberknecht-ssh-ws",
+  "version": "0.0.1",
+  "description": "",
+  "main": "export",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oberknechte/oberknecht-ssh-ws.git"
+  },
+  "author": "jubewe",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Oberknechte/oberknecht-ssh-ws/issues"
+  },
+  "homepage": "https://github.com/Oberknechte/oberknecht-ssh-ws#readme",
+  "dependencies": {
+    "oberknecht-emitters": "^1.0.2",
+    "oberknecht-utils": "^1.3.6",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.5",
+    "typescript": "^5.1.6"
+  }
+}
