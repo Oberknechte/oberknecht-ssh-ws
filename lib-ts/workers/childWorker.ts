@@ -12,8 +12,7 @@ child.stdout.on("data", (data) => {
   );
 });
 child.stdout.on("end", () => {
-  child.kill();
-  parentPort.emit("close");
+  parentPort.postMessage("end");
 });
 
 parentPort.on("message", (messageRaw) => {

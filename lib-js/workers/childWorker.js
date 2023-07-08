@@ -11,8 +11,7 @@ child.stdout.on("data", (data) => {
     }));
 });
 child.stdout.on("end", () => {
-    child.kill();
-    worker_threads_1.parentPort.emit("close");
+    worker_threads_1.parentPort.postMessage("end");
 });
 worker_threads_1.parentPort.on("message", (messageRaw) => {
     let message = JSON.parse(messageRaw);

@@ -2,6 +2,8 @@ import { i } from "../i";
 import { Worker } from "worker_threads";
 import { createChildWorkerReturnType } from "../types/createChildWorker";
 import path from "path";
+import { closeChildWorker } from "./closeChildWorker";
+import { returnErr } from "oberknecht-utils";
 
 export function createChildWorker(
   sym: string,
@@ -25,8 +27,11 @@ export function createChildWorker(
     i.childWorkers[sym][workerID] = worker;
 
     worker.on("message", (message) => {
+      if (message === "end") return worker.terminate();
+
       i.oberknechtEmitters[sym].emit(
         [
+          "workers:any",
           "workers:message",
           `workers:${workerID}`,
           `workers:${workerID}:message`,
@@ -39,15 +44,56 @@ export function createChildWorker(
     });
 
     worker.on("exit", (code) => {
-      console.log("worker exited", code);
+      // console.log("worker exited", code);
+      i.oberknechtEmitters[sym].emit(
+        [
+          "workers:any",
+          "workers:exit",
+          `workers:${workerID}`,
+          `workers:${workerID}:exit`,
+        ],
+        {
+          workerID: workerID,
+          messageType: "exit",
+          message: code,
+        }
+      );
+
+      closeChildWorker(sym, workerID);
     });
 
     worker.on("messageerror", (e) => {
-      console.error("worker msgerror", e);
+      // console.error("worker msgerror", e);
+      i.oberknechtEmitters[sym].emit(
+        [
+          "workers:any",
+          "workers:messageerror",
+          `workers:${workerID}`,
+          `workers:${workerID}:messageerror`,
+        ],
+        {
+          workerID: workerID,
+          messageType: "messageerror",
+          message: returnErr(e, false, true),
+        }
+      );
     });
 
     worker.on("error", (e) => {
-      console.error("worker error", e);
+      // console.error("worker error", e);
+      i.oberknechtEmitters[sym].emit(
+        [
+          "workers:any",
+          "workers:error",
+          `workers:${workerID}`,
+          `workers:${workerID}:error`,
+        ],
+        {
+          workerID: workerID,
+          messageType: "error",
+          message: returnErr(e, false, true),
+        }
+      );
     });
 
     i.serverData[sym].childWorkersNum++;

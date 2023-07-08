@@ -1,7 +1,7 @@
 import { i } from "../i";
 
 export function workerMessageHandler(sym: string) {
-  i.oberknechtEmitters[sym].on("workers:message", workerMessageCallback);
+  i.oberknechtEmitters[sym].on("workers:any", workerMessageCallback);
 
   function workerMessageCallback(data) {
     let { workerID } = data;

@@ -133,6 +133,7 @@ export class oberknechtSSHWSServer {
           type: "workerMessage",
           workerID: workerID,
           message: message,
+          workerMessage: data,
         });
       }
 

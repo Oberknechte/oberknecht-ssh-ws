@@ -107,6 +107,7 @@ class oberknechtSSHWSServer {
                     type: "workerMessage",
                     workerID: workerID,
                     message: message,
+                    workerMessage: data,
                 });
             }
             function removeEmitterCallback() {
